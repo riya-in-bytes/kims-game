@@ -1,0 +1,45 @@
+{
+  "expo": {
+    "name": "Kim's Game",
+    "slug": "kims-game",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "scheme": "kimsgame",
+    "userInterfaceStyle": "dark",
+    "backgroundColor": "#0B0F1A",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.kimsgame.app"
+    },
+    "android": {
+      "package": "com.kimsgame.app",
+      "adaptiveIcon": {
+        "backgroundColor": "#0B0F1A",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#0B0F1A",
+          "image": "./assets/splash-icon.png",
+          "imageWidth": 180
+        }
+      ],
+      "expo-asset"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
