@@ -1,4 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
+import Animated, { ZoomIn } from 'react-native-reanimated';
 import { STARTING_LIVES } from '@/game/scoring';
 import { colors, radius, spacing } from '@/theme/tokens';
 
@@ -15,11 +16,18 @@ export function Hud({ level, score, lives, accent }: Props) {
       <Pill label="Level" value={String(level)} accent={accent} />
       <Pill label="Score" value={String(score)} accent={accent} />
       <View style={styles.lives} accessibilityLabel={`${lives} lives left`}>
-        {Array.from({ length: STARTING_LIVES }, (_, i) => (
-          <Text key={i} style={[styles.heart, i >= lives && styles.heartLost]}>
-            ♥
-          </Text>
-        ))}
+        {Array.from({ length: STARTING_LIVES }, (_, i) =>
+          // Emoji glyphs ignore `color`, so swap the glyph itself rather than tinting it.
+          i < lives ? (
+            <Text key={`full-${i}`} style={styles.heart}>
+              ❤️
+            </Text>
+          ) : (
+            <Animated.Text key={`lost-${i}`} entering={ZoomIn.springify().damping(10)} style={[styles.heart, styles.heartLost]}>
+              💔
+            </Animated.Text>
+          ),
+        )}
       </View>
     </View>
   );
@@ -50,6 +58,6 @@ const styles = StyleSheet.create({
   pillLabel: { color: colors.textMuted, fontSize: 12, fontWeight: '600' },
   pillValue: { fontSize: 16, fontWeight: '800' },
   lives: { flexDirection: 'row', marginLeft: 'auto', gap: 2 },
-  heart: { color: colors.danger, fontSize: 20 },
-  heartLost: { color: colors.textFaint },
+  heart: { fontSize: 18 },
+  heartLost: { opacity: 0.45 },
 });
